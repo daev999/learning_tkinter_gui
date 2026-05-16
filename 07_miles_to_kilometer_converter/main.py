@@ -1,5 +1,12 @@
 from tkinter import *
 
+def action():
+    miles_to_convert = float(miles_box.get())
+    converted_km = miles_to_convert * 1.609
+    converted_num.config(text = converted_km)
+    return converted_km
+
+
 #Creating a new window and configurations
 window = Tk()
 window.title("miles_to_km_converter")
@@ -21,6 +28,10 @@ km.grid(column=2, row=1)
 #Entries
 miles_box = Entry(width=10)
 miles_box.grid(column=1, row=0)
+
+#Buttons
+calculate_button = Button(text="calculate", command=action)
+calculate_button.grid(column=1, row=2)
 
 
 
