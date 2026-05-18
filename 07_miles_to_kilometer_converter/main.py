@@ -2,7 +2,7 @@ from tkinter import *
 
 def action():
     miles_to_convert = float(miles_box.get())
-    converted_km = miles_to_convert * 1.609
+    converted_km = round(miles_to_convert * 1.609, 2)
     converted_num.config(text = converted_km)
     return converted_km
 
@@ -11,6 +11,7 @@ def action():
 window = Tk()
 window.title("miles_to_km_converter")
 window.minsize(width=300, height=200)
+window.config(padx=50, pady=50)
 
 #Labels
 is_equal_to = Label(text="is equal to")
