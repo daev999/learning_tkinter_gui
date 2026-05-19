@@ -6,7 +6,6 @@ def action():
     converted_num.config(text = converted_km)
     return converted_km
 
-
 #Creating a new window and configurations
 window = Tk()
 window.title("miles_to_km_converter")
@@ -33,8 +32,6 @@ miles_box.grid(column=1, row=0)
 #Buttons
 calculate_button = Button(text="calculate", command=action)
 calculate_button.grid(column=1, row=2)
-
-
 
 
 window.mainloop()
