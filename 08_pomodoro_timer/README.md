@@ -338,3 +338,142 @@ The Pomodoro timer can now:
 
 ---
 
+# Pomodoro Session Switching Logic
+
+## What I Learned
+
+In this part of the project, I learned how to automatically switch between:
+- work sessions
+- short breaks
+- long breaks
+
+using logic and pattern detection with the modulo operator `%`.
+
+---
+
+# Understanding Reps
+
+I created a global variable called:
+
+```python
+reps = 0
+```
+
+This variable keeps track of how many timer sessions have happened.
+
+Each session counts as one repetition:
+- work sessions
+- short breaks
+- long breaks
+
+---
+
+# Using Modulo for Pattern Detection
+
+I learned that modulo is not only used for finding remainders.
+
+It can also help detect patterns.
+
+For example:
+
+```python
+reps % 2 == 0
+```
+
+checks if a number is even.
+
+This helped me identify:
+- short break sessions
+- alternating timer behaviour
+
+---
+
+# Pomodoro Session Pattern
+
+The Pomodoro cycle follows this pattern:
+
+| Rep | Session |
+|---|---|
+| 1 | Work |
+| 2 | Short Break |
+| 3 | Work |
+| 4 | Short Break |
+| 5 | Work |
+| 6 | Short Break |
+| 7 | Work |
+| 8 | Long Break |
+
+---
+
+# Session Switching Logic
+
+I used conditional logic to decide which timer should run.
+
+```python
+if reps % 8 == 0:
+```
+
+starts the long break.
+
+```python
+elif reps % 2 == 0:
+```
+
+starts the short break.
+
+Everything else becomes a work session using:
+
+```python
+else:
+```
+
+---
+
+# Dynamic Label Updates
+
+I also learned how to dynamically update labels using:
+
+```python
+label.config()
+```
+
+This allowed the app to:
+- change the timer title
+- update colours
+- visually show the current session
+
+Example:
+
+```python
+timer.config(text="Break", fg=RED)
+```
+
+---
+
+# Important Concepts Practised
+
+- modulo `%`
+- pattern detection
+- global variables
+- conditional branching
+- `if / elif / else`
+- dynamic label updates
+- GUI state management
+- recursive timer cycling
+- event-driven programming
+
+---
+
+# Project Progress
+
+The Pomodoro timer can now:
+- switch between work and break sessions
+- automatically continue to the next session
+- update timer colours dynamically
+- visually show the current activity
+
+---
+
+# Updated Project Preview
+
+![Pomodoro Session Switching](images/pomodoro_session_switching_preview.png)
