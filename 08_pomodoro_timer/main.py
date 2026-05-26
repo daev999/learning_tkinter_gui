@@ -10,8 +10,20 @@ WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+countdown_timer = ""
 
 # ---------------------------- TIMER RESET ------------------------------- #
+def reset_timer():
+    global reps
+    reps = 0
+
+    if countdown_timer:
+        window.after_cancel(countdown_timer)
+        
+    canvas.itemconfig(timer_text, text="00:00")
+    timer.config(text="Timer")
+    check_marks.config(text="")
+
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
@@ -28,11 +40,8 @@ def start_timer():
         timer.config(text="Break", fg=PINK)
         count_down(short_break_sec)
     else:
-        timer.config(text="WORK", fg=GREEN)
+        timer.config(text="Work", fg=GREEN)
         count_down(work_sec)
-
-def reset_timer():
-    pass
 
 def count_down(count):
     count_min = math.floor(count / 60)
@@ -41,10 +50,12 @@ def count_down(count):
 
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global countdown_timer
+        countdown_timer = window.after(1000, count_down, count - 1)
     else:
+        completed_work_sessions = reps // 2
+        check_marks.config(text="✓" * completed_work_sessions)
         start_timer()
-
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro")
@@ -65,7 +76,7 @@ canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
 
-checkmark = Label(text="", fg=GREEN, bg=YELLOW)
-checkmark.grid(column=1, row=3)
+check_marks = Label(text="", fg=GREEN, bg=YELLOW)
+check_marks.grid(column=1, row=3)
 
 window.mainloop()
