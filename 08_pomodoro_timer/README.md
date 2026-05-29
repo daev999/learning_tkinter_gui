@@ -477,3 +477,96 @@ The Pomodoro timer can now:
 # Updated Project Preview
 
 ![Pomodoro Session Switching](images/pomodoro_session_switching_preview.png)
+
+# Reset Logic and Checkmark Tracking
+
+## What I Learned
+
+In this part of the Pomodoro project, I learned how to properly reset a Tkinter application while managing scheduled countdown events.
+
+---
+
+# Tracking Completed Work Sessions
+
+I used the global `reps` variable together with floor division:
+
+```python
+completed_work_sessions = reps // 2
+```
+
+to calculate how many work sessions had been completed.
+
+I then used string multiplication to dynamically display checkmarks:
+
+```python
+check_marks.config(text="✓" * completed_work_sessions)
+```
+
+This allowed the app to visually track completed Pomodoro sessions.
+
+---
+
+# Understanding `window.after()`
+
+I learned that:
+
+```python
+window.after()
+```
+
+does not pause the program.
+
+Instead, it schedules a future event inside Tkinter’s event loop.
+
+This helped me understand how GUI applications handle timing differently from normal loops.
+
+---
+
+# Cancelling Scheduled Events
+
+I also learned how to stop active countdown timers using:
+
+```python
+window.after_cancel()
+```
+
+To make this work, I stored the timer reference inside a global variable:
+
+```python
+countdown_timer
+```
+
+This allowed the reset button to properly stop active countdown events.
+
+---
+
+# Resetting Application State
+
+The reset button now:
+- stops the countdown
+- resets the timer display
+- clears checkmarks
+- resets the session counter
+- restores the default timer label
+
+---
+
+# Important Concepts Practised
+
+- Tkinter event loops
+- recursive countdown logic
+- `window.after()`
+- `window.after_cancel()`
+- global variables
+- state management
+- floor division `//`
+- string multiplication
+- dynamic label updates
+- defensive programming
+
+---
+
+# Updated Project Preview
+
+![Pomodoro Reset Logic](images/pomodoro_reset_logic_preview.png)
+
