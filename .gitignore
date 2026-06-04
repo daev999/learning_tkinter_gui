@@ -1,3 +1,5 @@
 .idea/
 __pycache__/
 *.pyc
+09_password_manager/data.txt
+09_password_manager/.idea/
