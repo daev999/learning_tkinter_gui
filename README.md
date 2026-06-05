@@ -143,10 +143,68 @@ Instead of rushing to solutions, I focus on understanding:
 
 ---
 
-# Current Goal
+## Current Focus
 
-To become more confident building Python applications while improving:
-- logical thinking
-- code structure
-- debugging skills
-- and project organisation
+Building complete GUI applications while improving:
+
+- Logical thinking
+- Code structure
+- Debugging skills
+- Project organisation
+- File handling
+- User experience design
+- Real-world Python development workflows
+
+## 08_pomodoro_timer
+
+Built a Pomodoro Timer application using Tkinter.
+
+### Features
+
+- Work and break session tracking
+- Countdown timer
+- Automatic session switching
+- Visual progress tracking using check marks
+- Reset functionality
+
+### Concepts Practised
+
+- `window.after()`
+- `window.after_cancel()`
+- Global variables
+- Timer logic
+- Tkinter Canvas widgets
+- Images with `PhotoImage`
+- State management
+- Event-driven programming
+
+---
+
+## 09_password_manager
+
+Built a Password Manager application using Tkinter.
+
+### Features
+
+- Store website credentials
+- Generate secure random passwords
+- Automatically populate the password field
+- Copy generated passwords to the clipboard
+- Validate user input before saving
+- Confirmation popups before saving
+- Save credentials to a local data file
+
+### Concepts Practised
+
+- File handling
+- Tkinter Entry widgets
+- Tkinter Message Boxes
+- List comprehensions
+- Random password generation
+- External packages (`pyperclip`)
+- Data validation
+- Git ignore rules (`.gitignore`)
+- Data persistence
+
+---
+
