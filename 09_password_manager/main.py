@@ -6,6 +6,7 @@ import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
+    """Generate a random password and copy it to the clipboard."""
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
@@ -24,7 +25,8 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
-    website_text = website_entry.get()
+    """Save website, email, and password details to data.json."""
+    website_text = website_entry.get().lower()
     email_text = email_entry.get()
     password_text = password_entry.get()
     new_data = {
@@ -54,7 +56,27 @@ def save():
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
-    # ---------------------------- UI SETUP ------------------------------- #
+# ---------------------------- FIND PASSWORD ------------------------------- #
+def find_password():
+    """Save website, email, and password details to data.json."""
+    website_text = website_entry.get().lower()
+
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+            user_details = data[website_text]
+    except FileNotFoundError:
+            messagebox.showwarning(title="Error", message="No Data File Found")
+    except KeyError:
+        messagebox.showwarning(title="Error", message="No details for the website exist")
+
+    else:
+        user_email = user_details["email"]
+        user_password = user_details["password"]
+
+        messagebox.showinfo(title=f"{website_text}", message=f"Email: {user_email} | Password: {user_password}")
+
+# ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
@@ -69,13 +91,13 @@ canvas.grid(row=0, column=1)
 website = Label(text="Website:")
 website.grid(row=1, column=0)
 website_entry = Entry(width=35)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry.grid(row=1, column=1, columnspan=1)
 website_entry.focus()
 
 email = Label(text="Email/Username:")
 email.grid(row=2, column=0)
 email_entry = Entry(width=35)
-email_entry.grid(row=2, column=1, columnspan=2)
+email_entry.grid(row=2, column=1, columnspan=1)
 email_entry.insert(0, "email@example.com")
 
 password = Label(text="Password:")
@@ -88,5 +110,8 @@ generate_password_btn.grid(row=3, column=2)
 
 add_btn = Button(text="Add", width=30, command=save)
 add_btn.grid(row=4, column=1, columnspan=2)
+
+search_btn = Button(text="Search", command=find_password)
+search_btn.grid(row=1, column=2)
 
 window.mainloop()
