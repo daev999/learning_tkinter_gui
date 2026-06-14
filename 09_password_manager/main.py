@@ -111,7 +111,7 @@ generate_password_btn.grid(row=3, column=2)
 add_btn = Button(text="Add", width=30, command=save)
 add_btn.grid(row=4, column=1, columnspan=2)
 
-search_btn = Button(text="Search", command=find_password)
+search_btn = Button(text="Search", command=find_password, width=13)
 search_btn.grid(row=1, column=2)
 
 window.mainloop()
