@@ -2,9 +2,15 @@ from tkinter import *
 import random
 import pandas
 
-data = pandas.read_csv("data/french_words.csv")
+# Does words_to_learn.csv exist?
+try:
+    data = pandas.read_csv("data/words_to_learn.csv")
+except FileNotFoundError:
+    data = pandas.read_csv("data/french_words.csv")
 
-current_card = data.iloc[random.randint(0, len(data) - 1)]
+to_learn = data.to_dict(orient="records")
+
+current_card = random.choice(to_learn)
 
 flip_timer = None
 
@@ -17,27 +23,33 @@ def flip_card():
     canvas.itemconfig(card_word,text=current_card["English"])
 
 def next_card():
-    global current_card, flip_timer
+    global current_card, flip_timer, to_learn
 
     if flip_timer:
         window.after_cancel(flip_timer)
 
-    current_card = data.iloc[random.randint(0, len(data) - 1)]
+    current_card = random.choice(to_learn)
 
     canvas.itemconfig(card_background, image=front_image)
     canvas.itemconfig(language_title, text="French")
     canvas.itemconfig(card_word, text=current_card["French"])
     flip_timer = window.after(3000, flip_card)
 
+def is_known():
+    to_learn.remove(current_card)
+    new_data = pandas.DataFrame(to_learn)
+    new_data.to_csv("words_to_learn.csv", index=False)
+    next_card()
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 # Window
 window = Tk()
 window.title("Flash Card")
-window.config(padx=50, pady=50, background=BACKGROUND_COLOR)
+window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 
 # Canvas
-canvas = Canvas(width=800, height=526)
+canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
 front_image = PhotoImage(file="images/card_front.png")
 back_image = PhotoImage(file="images/card_back.png")
 
@@ -50,7 +62,7 @@ right_image = PhotoImage(file="images/right.png")
 wrong_image = PhotoImage(file="images/wrong.png")
 
 wrong_button = Button(image=wrong_image, command=next_card, highlightthickness=0, bd=0)
-right_button = Button(image=right_image, command=next_card, highlightthickness=0, bd=0)
+right_button = Button(image=right_image, command=is_known, highlightthickness=0, bd=0)
 
 wrong_button.grid(row=1, column=0)
 right_button.grid(row=1, column=2)
